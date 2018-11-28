@@ -27,7 +27,10 @@ function searchOMDB() {
         if (movieResults && movieResults["Response"] !== "False") {
             let markup = movieResults["Search"].map((movie) => {
                 console.log(movie);
-                return `<p>${movie.Title}</p>`;
+                return `
+                    <p>${movie.Title}</p>
+                    <img src=${movie.Poster}>
+                `;
             }).join('');
             console.log(movieResults);
             searchResultsContainer.innerHTML += markup;
