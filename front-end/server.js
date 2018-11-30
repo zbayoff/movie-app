@@ -7,7 +7,7 @@ const request = require('request');
 
 const port = 4200;
 
-const db_URI = 'http://localhost:8000/movies';
+const db_URI = 'http://localhost:3000/api/movie';
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -23,18 +23,17 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, './public')));
 
 app.post('/searchMovies', searchMovies);
-app.post('/movies', (req, res) => {
+app.get('/movie', (req, res) => {
 
     console.log('gettting');
 
-    request(`${db_URI}`, function ( error, response, body) {
-        if (!error && response.statusCode == 200)
-        {
+    request(`${db_URI}`, function (error, response, body) {
+        console.log('body', body);
+        if (!error && response.statusCode == 200) {
+            // console.log(JSON.stringify(body));
             res.send(body);
-        } 
-        else 
-        {
-            res.send(404);
+        } else {
+            res.sendStatus(404);
         }
     });
 
@@ -47,8 +46,6 @@ app.post('/movies', (req, res) => {
 
 
 });
-
-
 
 
 // app.post('/movies', movies.add);
