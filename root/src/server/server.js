@@ -20,15 +20,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static('public'));
+console.log(path.join(__dirname, 'public'));
 
 app.post('/searchMovies', searchMovies);
 app.get('/movie', (req, res) => {
 
-    console.log('gettting');
-
     request(`${db_URI}`, function (error, response, body) {
-        console.log('body', body);
         if (!error && response.statusCode == 200) {
             // console.log(JSON.stringify(body));
             res.send(body);

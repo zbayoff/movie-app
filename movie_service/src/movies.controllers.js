@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
 const Movie = mongoose.model('Movie');
+const OmdbApi = require('omdb-api-pt')
 
-exports.findAll = function (req, res) {
+const omdb = new OmdbApi({
+    apiKey: 'ef5abb3c'
+    //   baseUrl // The base url of omdb. Defaults to 'https://omdbapi.com/'.
+});
+
+module.exports.findAll = function (req, res) {
     Movie.find({}, function (err, results) {
         return res.send(results);
     });
 };
 
-exports.findById = function (req, res) {
+module.exports.findById = function (req, res) {
     const id = req.params.id;
     Movie.findOne({
         '_id': id
@@ -16,15 +22,27 @@ exports.findById = function (req, res) {
     });
 };
 
-exports.add = function (req, res) {
+module.exports.add = function (req, res) {
     Movie.create(req.body, function (err, movie) {
         if (err) return console.log(err);
         return res.send(movie);
     });
 };
 
+module.exports.search = function (req, res) {
 
-exports.update = function (req, res) {
+    console.log(req.body);
+    
+    omdb.bySearch({
+            search: req.body,
+            // type: 'series',
+            // year: '2004',
+            page: 1
+        }).then(response => res.send(response))
+        .catch(err => console.error(err))
+};
+
+module.exports.update = function (req, res) {
 
     console.log('helooooo')
     const id = req.params.id;
@@ -42,7 +60,7 @@ exports.update = function (req, res) {
 };
 
 
-exports.delete = function (req, res) {
+module.exports.delete = function (req, res) {
     let id = req.params.id
     Movie.remove({
         '_id': id
@@ -51,7 +69,7 @@ exports.delete = function (req, res) {
     })
 };
 
-exports.import = function (req, res) {
+module.exports.import = function (req, res) {
     // Recipe below refers to the mongoose schema. create() is a mongoose method
     Movie.create({
             "Poster": "https://m.media-amazon.com/images/M/MV5BMjE4MDYzNDE1OV5BMl5BanBnXkFtZTcwNDY2OTYwNA@@._V1_SX300.jpg",
@@ -68,7 +86,7 @@ exports.import = function (req, res) {
         });
 };
 
-exports.deleteall = function (req, res) {
+module.exports.deleteall = function (req, res) {
 
     Movie.deleteMany({}, function (result) {
         console.log('DELETEING')
