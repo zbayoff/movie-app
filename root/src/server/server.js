@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const searchMovies = require('./controllers/searchMovies');
 const request = require('request');
 
 const port = 4200;
@@ -23,7 +22,7 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 console.log(path.join(__dirname, 'public'));
 
-app.post('/searchMovies', searchMovies);
+// app.post('/searchMovies', searchMovies);
 app.get('/movie', (req, res) => {
 
     request(`${db_URI}`, function (error, response, body) {

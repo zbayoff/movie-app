@@ -50,19 +50,5 @@ export default class Movie extends Component {
         ))}
       </ul>
     );
-
-    // return (
-    //   <div>
-    //     {movies.map(movie => {
-    //       return 
-    //         <p key={movie._id}>{movie.Title}</p>
-    //         <img src={movie.Poster} />
-          
-    //     })
-    //     }
-          
-        
-    //   </div>
-    // );
   }
 }

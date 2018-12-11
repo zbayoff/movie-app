@@ -31,20 +31,23 @@ module.exports.add = function (req, res) {
 
 module.exports.search = function (req, res) {
 
-    console.log(req.body);
+    // console.log('req.body', req.body);
     
     omdb.bySearch({
-            search: req.body,
+            search: req.body.text,
             // type: 'series',
             // year: '2004',
             page: 1
-        }).then(response => res.send(response))
+        })
+        .then(response => {
+            console.log(response);
+            return res.send(response)
+        })
         .catch(err => console.error(err))
 };
 
 module.exports.update = function (req, res) {
 
-    console.log('helooooo')
     const id = req.params.id;
     const updates = req.body;
 

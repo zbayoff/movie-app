@@ -23214,16 +23214,7 @@ function (_Component) {
             src: movie.Poster
           }))
         );
-      })); // return (
-      //   <div>
-      //     {movies.map(movie => {
-      //       return 
-      //         <p key={movie._id}>{movie.Title}</p>
-      //         <img src={movie.Poster} />
-      //     })
-      //     }
-      //   </div>
-      // );
+      }));
     }
   }]);
 
